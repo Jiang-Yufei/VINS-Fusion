@@ -15,6 +15,9 @@
 #include <boost/dynamic_bitset.hpp>
 #include <vector>
 
+#define CV_FONT_HERSHEY_SIMPLEX cv::FONT_HERSHEY_SIMPLEX
+#define CV_RGB2GRAY cv::COLOR_RGB2GRAY
+
 using namespace std;
 using namespace DVision;
 

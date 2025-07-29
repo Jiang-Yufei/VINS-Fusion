@@ -1,0 +1,91 @@
+%YAML:1.0
+
+#common parameters
+#support: 1 imu 1 cam; 1 imu 2 cam: 2 cam; 
+imu: 1         
+num_of_cam: 2  
+
+imu_topic: "/imu_apps"
+image0_topic: "/stereo_front/left"
+image1_topic: "/stereo_front/right"
+output_path: "/root/ws2/src/VINS-Fusion/config/voxl2/output"
+
+cam0_calib: "left.yaml"
+cam1_calib: "right.yaml"
+image_width: 640
+image_height: 480
+   
+
+# Extrinsic parameter between IMU and Camera.
+estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
+                        # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
+
+body_T_cam0: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [-0.011749412106278806, 0.033872483494396866, 0.9993570964260374, 0.0106,
+          0.9997063618805053, -0.02078433406312144, 0.01245798832871875, -0.0316,
+          0.02119295474450772, 0.9992100211264276, -0.03361833353577873, 0.0112,
+          0.0, 0.0, 0.0, 1.0]
+
+body_T_cam1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [-0.019388714700946275, 0.029827195998085143, 0.9993670077209561, 0.0094,
+          0.9998, -0.0049, 0.0195, 0.0422,
+          0.0055, 0.9995, -0.0297, 0.0111,
+          0.0, 0.0, 0.0, 1.0]
+#body_T_cam0: !!opencv-matrix
+#rows: 4
+   # cols: 4
+   #  dt: d
+   #data: [ -8.9839721339899370e-03, 1.8809640609831139e-02,
+   #   9.9978271922694517e-01, 2.5765023824691802e-02,
+   #   9.9972608001690577e-01, -2.1439508836147425e-02,
+   #   9.3868202761202141e-03, -3.4725314945750513e-02,
+   #   2.1611413158956556e-02, 9.9959318969318400e-01,
+   #   -1.8611876323442855e-02, 5.3804472489197758e-02, 0., 0., 0., 1. ]
+       #body_T_cam1: !!opencv-matrix
+#rows: 4
+   #cols: 4
+   #dt: d
+   #data: [ -1.2143294587827036e-02, 1.4985935718387050e-02,
+   #9.9981396375885745e-01, 2.8680588394753702e-02,
+       #9.9991460574942193e-01, -4.6470685681945234e-03,
+       #1.2214170569509205e-02, 4.4905119074976629e-02,
+       #4.8292448200337526e-03, 9.9987690566607601e-01,
+       #       -1.4928225283043828e-02, 5.2241505455473923e-02, 0., 0., 0., 1. ]
+ 
+#Multiple thread support
+multiple_thread: 1
+
+#feature traker paprameters
+max_cnt: 150            # max feature number in feature tracking
+min_dist: 10            # min distance between two features 
+freq: 15                # frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image 
+F_threshold: 1.0        # ransac threshold (pixel)
+show_track: 0           # publish tracking image as topic
+flow_back: 1            # perform forward and backward optical flow to improve feature tracking accuracy
+
+#optimization parameters
+max_solver_time: 0.04  # max solver itration time (ms), to guarantee real time
+max_num_iterations: 8   # max solver itrations, to guarantee real time
+keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
+
+#imu parameters       The more accurate parameters you provide, the better performance
+acc_n: 0.2          # accelerometer measurement noise standard deviation. #0.2   0.04
+gyr_n: 0.05         # gyroscope measurement noise standard deviation.     #0.05  0.004
+acc_w: 0.01         # accelerometer bias random work noise standard deviation.  #0.002
+gyr_w: 0.01       # gyroscope bias random work noise standard deviation.     #4.0e-5
+g_norm: 9.82         # gravity magnitude
+
+#unsynchronization parameters
+estimate_td: 1                      # online estimate time offset between camera and imu
+td: -0.006                             # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
+
+#loop closure parameters
+load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
+pose_graph_save_path: "/root/ws2/src/VINS-Fusion/config/voxl2/output" # save and load path
+save_image: 0                   # save image in pose graph for visualization prupose; you can close this function by setting 0 

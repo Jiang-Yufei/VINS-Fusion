@@ -25,6 +25,10 @@
 #include "../estimator/parameters.h"
 #include "../utility/tic_toc.h"
 
+#include <opencv2/highgui.hpp>
+#include <opencv2/cvconfig.h>
+#include <opencv2/imgproc/types_c.h>
+
 using namespace std;
 using namespace camodocal;
 using namespace Eigen;

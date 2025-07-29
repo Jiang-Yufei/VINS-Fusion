@@ -10,6 +10,8 @@
  *******************************************************/
 
 #include "keyframe.h"
+#define CV_FONT_HERSHEY_SIMPLEX cv::FONT_HERSHEY_SIMPLEX
+#define CV_RGB2GRAY cv::COLOR_RGB2GRAY
 
 template <typename Derived>
 static void reduceVector(vector<Derived> &v, vector<uchar> status)

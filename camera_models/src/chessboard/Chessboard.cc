@@ -5,6 +5,13 @@
 
 #include "camodocal/chessboard/ChessboardQuad.h"
 #include "camodocal/chessboard/Spline.h"
+#include <opencv2/opencv.hpp>
+
+// OpenCV 4.x 兼容性宏替换
+#define CV_CALIB_CB_ADAPTIVE_THRESH   cv::CALIB_CB_ADAPTIVE_THRESH
+#define CV_CALIB_CB_NORMALIZE_IMAGE   cv::CALIB_CB_NORMALIZE_IMAGE
+#define CV_CALIB_CB_FILTER_QUADS      cv::CALIB_CB_FILTER_QUADS
+#define CV_CALIB_CB_FAST_CHECK        cv::CALIB_CB_FAST_CHECK
 
 #define MAX_CONTOUR_APPROX  7
 

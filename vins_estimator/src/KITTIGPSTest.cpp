@@ -20,6 +20,7 @@
 #include "estimator/estimator.h"
 #include "utility/visualization.h"
 
+#define CV_LOAD_IMAGE_GRAYSCALE cv::IMREAD_GRAYSCALE
 using namespace std;
 using namespace Eigen;
 
